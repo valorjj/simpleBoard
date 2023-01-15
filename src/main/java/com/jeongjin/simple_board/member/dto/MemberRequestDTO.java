@@ -24,7 +24,7 @@ public class MemberRequestDTO {
     @NotBlank(message = "NAME_IS_MANDATORY")
     private String name;
 
-    public MemberEntity saveNewMember() {
+    public MemberEntity toEntity() {
         return MemberEntity.builder()
                 .email(email)
                 .password(password)

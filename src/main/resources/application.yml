@@ -7,16 +7,16 @@ spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://localhost:3306/simple_board?characterEncoding=UTF-8&serverTimezone=Asia/Seoul
-    username: jeongjin
+    username: root
     password: 1qaz!QAZ2wsx@WSX
 
   jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
       ddl-auto: create
     properties:
       hibernate:
         format_sql: true
-    # database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
 
 logging:
   level:
