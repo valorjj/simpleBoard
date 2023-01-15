@@ -34,5 +34,11 @@ public class MemberRequestDTO {
                 .build();
     }
 
+    @Override
+    public String toString() {
+        return email + ", " + password + ", " + name;
+
+    }
+
 
 }

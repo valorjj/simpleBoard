@@ -3,6 +3,7 @@ package com.jeongjin.simple_board.member.service;
 
 import com.jeongjin.simple_board.member.domain.MemberEntity;
 import com.jeongjin.simple_board.member.repository.MemberRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 
@@ -25,6 +26,7 @@ public class MemberServiceImpl implements MemberService {
      * @param memberId
      * @return
      */
+    @Transactional
     @Override
     public MemberEntity search(Long memberId) {
         return memberRepository.findById(memberId).get();

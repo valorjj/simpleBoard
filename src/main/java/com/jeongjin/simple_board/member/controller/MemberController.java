@@ -7,6 +7,8 @@ import com.jeongjin.simple_board.member.domain.MemberEntity;
 import com.jeongjin.simple_board.member.dto.MemberRequestDTO;
 import com.jeongjin.simple_board.member.dto.MemberResponseDTO;
 import com.jeongjin.simple_board.member.service.MemberService;
+import com.jeongjin.simple_board.member.service.MemberServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -17,12 +19,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@Slf4j
 public class MemberController {
 
-    private final MemberService memberService;
+    private final MemberServiceImpl memberServiceImpl;
 
-    public MemberController(MemberService memberService) {
-        this.memberService = memberService;
+    public MemberController(MemberServiceImpl memberServiceImpl) {
+        this.memberServiceImpl = memberServiceImpl;
     }
 
     @GetMapping("/get/members")
@@ -41,19 +44,25 @@ public class MemberController {
 
     @PostMapping("/save/member")
     public ResponseEntity<?> saveMember(@Validated @RequestBody final MemberRequestDTO memberRequestDTO, BindingResult bindingResult) {
-
+        // 유효성 검사를 통과하지 못한 경우
         if (bindingResult.hasErrors()) {
+            log.info("Some Error occured while saving member");
             List<String> errors = bindingResult.getAllErrors().stream().map(
                     DefaultMessageSourceResolvable::getDefaultMessage).toList();
             return ResponseEntity.ok(new ErrorResponse("404", "Validation Failed", errors));
         }
+        // 저장로직
+        MemberEntity savedMemberEntity;
         try {
-            final MemberEntity memberEntity = memberService.search(memberRequestDTO.toEntity().getId());
+            log.info("{}", memberRequestDTO.toString());
+            // insert
+            savedMemberEntity = memberServiceImpl.save(memberRequestDTO.toEntity());
         } catch (Exception e) {
             return ResponseEntity.ok(new MemberResponseDTO(memberRequestDTO.toEntity()));
         }
+        log.info("returning saved member info");
         return ResponseEntity.ok(
-                new MemberResponseDTO(memberService.search(memberRequestDTO.toEntity().getId()))
+                new MemberResponseDTO(memberServiceImpl.search(savedMemberEntity.getId()))
         );
     }
 
@@ -70,6 +79,7 @@ public class MemberController {
 
         return null;
     }
+
 
 
 }
