@@ -17,6 +17,10 @@ public class MemberServiceImpl implements MemberService {
     }
 
 
+    /**
+     * @param memberEntity
+     * @return
+     */
     @Override
     public MemberEntity save(MemberEntity memberEntity) {
         return memberRepository.save(memberEntity);
@@ -30,5 +34,21 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public MemberEntity search(Long memberId) {
         return memberRepository.findById(memberId).get();
+    }
+
+    /**
+     * @param memberEntity
+     */
+    @Override
+    public void update(MemberEntity memberEntity) {
+
+    }
+
+    /**
+     * @param memberId
+     */
+    @Override
+    public void delete(Long memberId) {
+
     }
 }

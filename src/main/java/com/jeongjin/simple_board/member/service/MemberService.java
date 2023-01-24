@@ -13,10 +13,10 @@ public interface MemberService {
 
 
     // UPDATE
-
+    void update(MemberEntity memberEntity);
 
     // DELETE
-
+    void delete(Long memberId);
 
 
 }

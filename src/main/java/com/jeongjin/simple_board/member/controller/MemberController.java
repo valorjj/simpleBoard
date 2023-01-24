@@ -9,6 +9,8 @@ import com.jeongjin.simple_board.member.dto.MemberResponseDTO;
 import com.jeongjin.simple_board.member.service.MemberService;
 import com.jeongjin.simple_board.member.service.MemberServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -19,15 +21,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@Slf4j
+// @Slf4j
 public class MemberController {
-
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
     private final MemberServiceImpl memberServiceImpl;
 
     public MemberController(MemberServiceImpl memberServiceImpl) {
         this.memberServiceImpl = memberServiceImpl;
     }
 
+    /**
+     * @return
+     */
     @GetMapping("/get/members")
     public List<MemberEntity> getMembers() {
 
@@ -35,6 +40,10 @@ public class MemberController {
         return null;
     }
 
+    /**
+     * @param id
+     * @return
+     */
     @GetMapping("/get/member/{id}")
     public MemberEntity getMember(@PathVariable Integer id) {
 
@@ -42,13 +51,17 @@ public class MemberController {
         return null;
     }
 
+    /**
+     * @param memberRequestDTO
+     * @param bindingResult
+     * @return
+     */
     @PostMapping("/save/member")
     public ResponseEntity<?> saveMember(@Validated @RequestBody final MemberRequestDTO memberRequestDTO, BindingResult bindingResult) {
         // 유효성 검사를 통과하지 못한 경우
         if (bindingResult.hasErrors()) {
-            log.info("Some Error occured while saving member");
-            List<String> errors = bindingResult.getAllErrors().stream().map(
-                    DefaultMessageSourceResolvable::getDefaultMessage).toList();
+            log.info("Some Error occurred while saving member");
+            List<String> errors = bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList();
             return ResponseEntity.ok(new ErrorResponse("404", "Validation Failed", errors));
         }
         // 저장로직
@@ -66,6 +79,10 @@ public class MemberController {
         );
     }
 
+    /**
+     * @param member
+     * @return
+     */
     @PutMapping("/update/member")
     public ResponseEntity<MemberEntity> updateMember(@RequestBody MemberEntity member) {
 
@@ -73,13 +90,16 @@ public class MemberController {
         return null;
     }
 
+    /**
+     * @param memberId
+     * @return
+     */
     @DeleteMapping("/delete/member/{memberId}")
     public ResponseEntity<MemberEntity> deleteMember(@PathVariable Integer memberId) {
 
 
         return null;
     }
-
 
 
 }

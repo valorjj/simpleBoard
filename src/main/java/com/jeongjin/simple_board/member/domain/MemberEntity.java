@@ -3,8 +3,6 @@ package com.jeongjin.simple_board.member.domain;
 
 import com.jeongjin.simple_board.common.domain.BaseTimeEntity;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Entity
