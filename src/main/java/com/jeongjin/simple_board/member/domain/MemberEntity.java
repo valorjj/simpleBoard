@@ -36,14 +36,5 @@ public class MemberEntity extends BaseTimeEntity {
     @Column(name = "member_deleted")
     private String deleted;
 
-    @Builder
-    public MemberEntity(String email, String password, String name, String active, String deleted) {
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.active = active;
-        this.deleted = deleted;
-    }
-
 
 }

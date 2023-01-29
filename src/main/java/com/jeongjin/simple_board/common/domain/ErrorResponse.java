@@ -14,6 +14,11 @@ public class ErrorResponse {
     private String errorContent;
     private List<String> messages;
 
+    /**
+     * @param statusCode
+     * @param errorContent
+     * @param message
+     */
     public ErrorResponse(String statusCode, String errorContent, String message) {
         this.statusCode = statusCode;
         this.errorContent = errorContent;
@@ -21,6 +26,11 @@ public class ErrorResponse {
         this.messages.add(message);
     }
 
+    /**
+     * @param statusCode
+     * @param errorContent
+     * @param message
+     */
     public ErrorResponse(String statusCode, String errorContent, List<String> message) {
         this.statusCode = statusCode;
         this.errorContent = errorContent;

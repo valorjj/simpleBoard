@@ -11,7 +11,7 @@ spring:
     password: 1qaz!QAZ2wsx@WSX
 
   jpa:
-    database-platform: org.hibernate.dialect.MySQL8Dialect
+    database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: create
     properties:
@@ -23,3 +23,16 @@ logging:
     org.hibernate:
       type.descriptor.sql: trace
       SQL: debug
+
+
+# HS512 알고리즘을 사용하려면, 512bit, 즉
+# Base64 로 인코딩한 값을 사용
+# i-am-learning-springboot-and-doing-spring-security-thing-and-lets-go
+# 1800000 30min
+# 604800000 1week
+
+jwt:
+  header: Authorization
+  secret: aS1hbS1sZWFybmluZy1zcHJpbmdib290LWFuZC1kb2luZy1zcHJpbmctc2VjdXJpdHktdGhpbmctYW5kLWxldHMtZ28=
+  access-token-expire-time : 1800000
+  refresh-token-expire-time: 604800000

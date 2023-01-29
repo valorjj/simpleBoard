@@ -61,8 +61,9 @@ public class MemberController {
         // 유효성 검사를 통과하지 못한 경우
         if (bindingResult.hasErrors()) {
             log.info("Some Error occurred while saving member");
+            log.info("{}", bindingResult.getAllErrors());
             List<String> errors = bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList();
-            return ResponseEntity.ok(new ErrorResponse("404", "Validation Failed", errors));
+            return ResponseEntity.ok(new ErrorResponse(ErrorCode.EMAIL_INVALID.getMessage(), ErrorCode.EMAIL_INVALID.getErrorContent(), ErrorCode.EMAIL_INVALID.getMessage()));
         }
         // 저장로직
         MemberEntity savedMemberEntity;
